@@ -11,16 +11,16 @@ include_once('../templates/before.php');
 </div>
 
 <div id="places" class="box">
-    <h2>places</h2>
+    <h2>locations</h2>
 </div>
 <div id="quantities" class="box">
     <h2>quantities</h2>
 </div>
-<div id="facts" class="box">
-    <h2>empirical facts</h2>
-</div>
 <div id="claims" class="box">
     <h2>hypothesized claims</h2>
+</div>
+<div id="facts" class="box">
+    <h2>empirical facts</h2>
 </div>
 <div id="predictions" class="box">
     <h2>predictions</h2>
