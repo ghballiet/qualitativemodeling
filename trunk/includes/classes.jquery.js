@@ -100,10 +100,10 @@ function Prediction(item) {
         s += " with " + this.from.shortHtml();
         s += ".";
         
+        var t = '<div id="' + this.id + '_explanation" class="explanation">';
         if(this.paths != null) {
-            var t = '<div id="' + this.id + '_explanation" class="explanation">';
-            t += '<h3>' + this.to.name.replace(/-/gi," ") + ' ' + this.direction.replace(/-/gi," ");
-            t += ' with ' + this.from.name.replace(/-/," ") + ' because:</h3>';
+            t += '<h3>' + this.to.fullName() + ' ' + this.direction.replace(/-/gi," ");
+            t += ' with ' + this.from.fullName() + ' because:</h3>';
             for(var i in this.paths) {
                 t += '<div class="direction">';
                 t += '<h4>' + this.paths[i][0] + '</h4>';
@@ -115,10 +115,11 @@ function Prediction(item) {
                 }
                 t += '</div>';
             }
-            t += '</div>';
-            $('#predictions').append(t);
+        } else {
+            t += '<h3>There are no causal paths from ' + this.to.fullName() + ' to ' + this.from.fullName() + '.</h3>';
         }
-        
+        t += '</div>';
+        $('#predictions').append(t);
         s += '</div>';
         return s;
     }

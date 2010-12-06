@@ -2,7 +2,7 @@
 @import "fonts";
 
 @font-stack: helvetica, arial, verdana, sans-serif;
-@font-stack-header: 'TeXGyreHeros', @font-stack;
+@font-stack-header: 'DroidSans', 'TeXGyreHeros', @font-stack;
 
 @cl-base: #85a5cc;
 @cl-darkest: #1a1f2b;
@@ -35,6 +35,7 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -0.06em;
     .inset;
     font-family: @font-stack-header;
+    font-weight: normal;
 }
 
 h1 {
@@ -243,7 +244,6 @@ pre {
     text-align: center;
     margin-bottom: 1em;
     font-size: 1.25em;
-    text-transform: capitalize;
 }
 
 .explanation h4 {
@@ -326,8 +326,9 @@ pre {
     border: solid 1px transparent;
     padding: .5em;
     margin: .5em;
-    text-transform: uppercase;
-    font-weight: bold;
+/*    text-transform: uppercase;*/
+/*    font-weight: bold;*/
+    letter-spacing: -0.06em;
     font-size: 1.25em;
     .round(.5em);
     color: rgba(0,0,0,.5);
