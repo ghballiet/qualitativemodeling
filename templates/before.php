@@ -8,6 +8,7 @@ include_once('../includes/functions.php');
         <title><?echo $_POST['page_title'];?></title>
         <link rel="stylesheet" type="text/css" href="../includes/reset.css" />
         <link rel="stylesheet" type="text/css" href="../includes/master.css" />
+        <link rel="stylesheet" type="text/css" href="../includes/manual_layout.css" />
         <script type="text/javascript" src="../includes/jquery-1.4.3.min.js"></script>
         <script type="text/javascript" src="../includes/classes.jquery.js"></script>
         <script type="text/javascript" src="../includes/forms.jquery.js"></script>
