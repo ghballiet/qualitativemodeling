@@ -164,9 +164,10 @@ function refresh_data(objects) {
         }
     }
     
-    // fixed names for facts and claims
+    // fixed names for facts, claims, and places
     $('#facts h2').html('Empirical Facts');
     $('#claims h2').html('Hypothesized Claims');
+    $('#places h2').html('Locations');
         
     add_button_events();
     delete_button_events();
