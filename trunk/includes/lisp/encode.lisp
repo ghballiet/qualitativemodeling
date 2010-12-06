@@ -67,7 +67,20 @@
       (json:encode-object-element "from" (string (prediction-from prediction)))
       (json:encode-object-element "to" (string (prediction-to prediction)))
       (json:encode-object-element "direction" (string (prediction-direction prediction)))
-      (json:encode-object-element "paths" (prediction-paths prediction)))))
+      (json:encode-object-element "paths" (build-path-list prediction)))))
+
+(defun build-path-list (p)
+  (let ((master-list nil)
+	(direction nil)
+	(lst nil))
+    (loop for path in (prediction-paths p) do
+	 (setq direction (car path))
+	 (setq lst nil)
+	 (loop for item in (cdr path) do
+	      (push (claim-id item) lst))
+	 (push (list direction lst) master-list)
+	 )
+    (reverse master-list)))
 
 (defun load-all-predictions (facts)
   (cond ((null facts) (setq facts facts*))

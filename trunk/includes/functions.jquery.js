@@ -106,31 +106,24 @@ function make_classes(json_data, objects) {
         var q2 = objects['quantities'][t];
         objects['predictions'][o].to = q2;
         
-        // clean up the paths
-        var arr = {};
-        
         for(var i in objects['predictions'][o].paths) {
-            var direction = objects['predictions'][o].paths[i][0];
-            arr[direction] = Array();
-            
-            for(var j=1; j < objects['predictions'][o].paths[i].length - 1; j++) {
-                var cid = objects['predictions'][o].paths[i][j]['id'];
-                arr[direction].push(objects['claims'][cid]);
+            for(var j in objects['predictions'][o].paths[i][1]) {
+                var c = objects['predictions'][o].paths[i][1][j];
+                var c1 = objects['claims'][c];
+                objects['predictions'][o].paths[i][1][j] = c1;
             }
         }
-        
-        objects['predictions'][o].paths = arr;
     }
 
-    for(var o in objects['beliefs']) {
-        var f = objects['beliefs'][o].fact;
-        var f2 = objects['facts'][f];
-        objects['beliefs'][o].fact = f2;
-    
-        var p = objects['beliefs'][o].prediction;
-        var p2 = objects['predictions'][p];
-        objects['beliefs'][o].prediction = p2;
-    }
+    // for(var o in objects['beliefs']) {
+    //     var f = objects['beliefs'][o].fact;
+    //     var f2 = objects['facts'][f];
+    //     objects['beliefs'][o].fact = f2;
+    // 
+    //     var p = objects['beliefs'][o].prediction;
+    //     var p2 = objects['predictions'][p];
+    //     objects['beliefs'][o].prediction = p2;
+    // }
 }
 
 function refresh_data(objects) {
@@ -147,9 +140,6 @@ function refresh_data(objects) {
         try {            
             for(j in objects[i]) {
                 var o = objects[i][j];
-                // special case for quantity time
-                if(o.name == "time")
-                    continue;
                 var s = '<div id="' + o.id + '" class="item">';
                 s += o.html();
                 s += '<div class="actions">';
@@ -321,7 +311,7 @@ function prediction_click_events() {
     $('#predictions .item').click(function() {
         var id = $(this).attr('id');
         $('.explanation').hide();
-        $('#' + id + '_explanation').fadeIn('fast');
+        $('#' + id + '_explanation').show();
     });
 }
 
@@ -363,7 +353,9 @@ function show_predictions() {
             data: { 'cmd' : cmd },
             complete: function(data) {
                 load_entity('predictions');
-                get_beliefs();
+                make_classes(json_data, objects);
+                refresh_data(objects);
+                // get_beliefs();
             }
         });
         

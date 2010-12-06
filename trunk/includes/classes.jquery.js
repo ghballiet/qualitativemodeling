@@ -95,25 +95,30 @@ function Prediction(item) {
     this.paths = item.paths;
         
     this.html = function() {
-        s = this.to.shortHtml();
+        var s = this.to.shortHtml();
         s += " " + this.direction.replace(/-/gi," ");
         s += " with " + this.from.shortHtml();
         s += ".";
-        if("increases" in this.paths || "decreases" in this.paths) {
+        
+        if(this.paths != null) {
             var t = '<div id="' + this.id + '_explanation" class="explanation">';
-            for(var direction in this.paths) {
+            t += '<h3>' + this.to.name.replace(/-/gi," ") + ' ' + this.direction.replace(/-/gi," ");
+            t += ' with ' + this.from.name.replace(/-/," ") + ' because:</h3>';
+            for(var i in this.paths) {
                 t += '<div class="direction">';
-                t += '<h4>' + direction + '</h4>';
-                for(var i in this.paths[direction]) {
-                    t += '<div class="item">';
-                    t += this.paths[direction][i].html();
-                    t += '</div>';
+                t += '<h4>' + this.paths[i][0] + '</h4>';
+                for(var j in this.paths[i][1]) {
+                    var c = this.paths[i][1][j];
+                    t += '<p>';
+                    t += c.html_nonotes();
+                    t += '</p>';
                 }
                 t += '</div>';
             }
             t += '</div>';
             $('#predictions').append(t);
         }
+        
         s += '</div>';
         return s;
     }
