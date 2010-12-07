@@ -6,8 +6,8 @@ include_once('../templates/before.php');
     <input type="button" value="Show Predictions" id="show_predicitons" class="top_action_button"/>
     <input type="button" value="Save" id="view_json" class="top_action_button"/>
     <input type="button" value="Reset" id="reset_json" class="top_action_button"/>
-    <input type="button" value="Export to Lisp" id="export_lisp" class="top_action_button"/>
-    <input type="button" value="Regenerate JSON from Lisp" id="import_lisp" class="top_action_button" />
+    <!-- <input type="button" value="Export to Lisp" id="export_lisp" class="top_action_button"/> -->
+    <!-- <input type="button" value="Regenerate JSON from Lisp" id="import_lisp" class="top_action_button" /> -->
 </div>
 
 <div id="places" class="box">

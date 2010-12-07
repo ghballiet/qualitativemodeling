@@ -197,7 +197,7 @@ pre {
   border-radius: 0.5em;
   padding: 1em;
   position: absolute;
-  z-index: 5;
+  z-index: 100;
 }
 .add_form span { margin: 0px 0.5em; }
 .add_form input[type="button"] { margin-left: 0.5em; }
