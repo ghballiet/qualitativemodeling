@@ -1,5 +1,5 @@
 function claimsForm() {
-    s += '<select name="cause">';
+    s += '<select name="effect">';
     for(i in objects['quantities']) {
         o = objects['quantities'][i];
         s += '<option value="' + o.id + '">' + o.fullName() + '</option>';
@@ -11,7 +11,7 @@ function claimsForm() {
     s += '<option value="decreases">decreases with</option>';
     s += '</select>';
     
-    s += '<select name="effect">';
+    s += '<select name="cause">';
     for(i in objects['quantities']) {
         o = objects['quantities'][i];
         s += '<option value="' + o.id + '">' + o.fullName() + '</option>';
@@ -24,7 +24,7 @@ function claimsForm() {
 }
 
 function factsForm() {
-    s += '<select name="from">';
+    s += '<select name="to">';
     for(i in objects['quantities']) {
         o = objects['quantities'][i];
         s += '<option value="' + o.id + '">' + o.fullName() + '</option>';
@@ -36,7 +36,7 @@ function factsForm() {
     s += '<option value="decreases">decreases with</option>';
     s += '</select>';
     
-    s += '<select name="to">';
+    s += '<select name="from">';
     for(i in objects['quantities']) {
         o = objects['quantities'][i];
         s += '<option value="' + o.id + '">' + o.fullName() + '</option>';
