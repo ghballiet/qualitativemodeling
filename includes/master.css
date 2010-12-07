@@ -262,16 +262,17 @@ pre {
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   border-radius: 0.5em;
+  z-index: 5;
 }
 .explanation h3 {
   text-align: center;
   margin-bottom: 1em;
   font-size: 1.25em;
 }
-.explanation h4 { text-align: center; }
 .explanation h4 {
+  text-align: center;
   font-size: 1.125em;
-  text-transform: capitalize;
+  text-transform: lowercase;
 }
 .explanation:hover .item span { display: none !important; }
 .item:hover .explanation .item span { display: none !important; }
@@ -295,6 +296,10 @@ pre {
 }
 .direction:last-child { margin-bottom: 0px; }
 .direction p { margin-bottom: 0.5em; }
+.direction p strong {
+  color: #220000;
+  font-weight: normal;
+}
 .direction p:last-child { margin-bottom: none; }
 #beliefs .add_button { display: none; }
 .belief_fact, .belief_prediction {
@@ -321,3 +326,26 @@ pre {
   color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
+p.arrow {
+  z-index: 0;
+  display: inline-block;
+  -webkit-top-left-radius: 2em;
+  -moz-border-radius-topleft: 2em;
+  border-top-left-radius: 2em;
+  -webkit-bottom-right-radius: 2em;
+  -moz-border-radius-bottomright: 2em;
+  border-bottom-right-radius: 2em;
+  font-size: 0.8em;
+  position: absolute;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  margin-left: -7em;
+  padding: 0.3em;
+  width: 6em;
+  color: #ffffff;
+  opacity: 0.8;
+}
+p.agree { background: #118811; }
+p.disagree { background: #881111; }

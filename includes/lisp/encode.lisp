@@ -86,7 +86,7 @@
   (cond ((null facts) (setq facts facts*))
 	(t (setq facts
 		 (mapcar #'(lambda (f) (get-fact-by-id f facts*)) facts))))
-  (mapc #'load-one-prediction (compare-to-facts facts)))
+	(mapc #'load-one-prediction (compare-to-facts facts)))
 
 (defun load-one-prediction (pair)
   (let ((fact (car pair))
