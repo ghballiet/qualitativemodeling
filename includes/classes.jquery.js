@@ -5,7 +5,7 @@ function Belief(item) {
     this.relation = item.relation;
     
     this.html = function() {
-        s = '<p class="belief_fact">';
+        var s = '<p class="belief_fact">';
         s += 'Fact ' + this.fact.id + ' (' + this.fact.shortHtml();
         s += ')</p> <strong>' + this.relation + 's with</strong> <p class="belief_prediction">';
         s += 'Prediction ' + this.prediction.id + ' (' + this.prediction.shortHtml();
@@ -22,7 +22,7 @@ function Claim(item) {
     this.note = item.note;
     
     this.html = function() {
-        s = this.effect.shortHtml();
+        var s = this.effect.shortHtml();
         s += " " + this.direction.replace(/-/gi," ") + " ";
         s += "with " + this.cause.shortHtml();
         s += ".";
@@ -32,7 +32,7 @@ function Claim(item) {
     };
     
     this.html_nonotes = function() {
-        s = this.effect.shortHtml();
+        var s = this.effect.shortHtml();
         s += " " + this.direction.replace(/-/gi," ") + " ";
         s += "with " + this.cause.shortHtml();
         s += ".";
@@ -47,7 +47,7 @@ function Fact(item) {
     this.direction = item.direction;
     this.note = item.note;
     this.html = function() {
-        s = this.to.shortHtml();
+        var s = this.to.shortHtml();
         s += " " + this.direction.replace(/-/gi," ");
         s += " with " + this.from.shortHtml();
         s += ".";        
@@ -57,7 +57,7 @@ function Fact(item) {
     }
     
     this.shortHtml = function() {
-        s = this.to.shortHtml();
+        var s = this.to.shortHtml();
         s += " " + this.direction.replace(/-/gi," ");
         s += " with " + this.from.shortHtml();
         return s;
@@ -70,7 +70,7 @@ function Place(item) {
     this.is_in = item['in'];
     this.note = item.note;    
     this.html = function() {
-        s = "<strong>" + this.name.replace(/-/gi," ") + "</strong>";
+        var s = "<strong>" + this.name.replace(/-/gi," ") + "</strong>";
         if(this.is_in != null)
             s += " in <strong>" + this.is_in.name.replace(/-/gi," ") + "</strong>";
         s += ".";
@@ -111,10 +111,12 @@ function Prediction(item) {
             t += '<h3>' + this.to.fullName() + ' ' + this.direction.replace(/-/gi," ");
             t += ' with ' + this.from.fullName() + ' because:</h3>';
             var count = 0;
+            this.paths.reverse();
             for(var i in this.paths) {
                 count++;
                 t += '<div class="direction" id="direction_' + this.id + '_' + this.paths[i][0] + count + '">';
                 t += '<h4>' + this.paths[i][0] + '</h4>';
+                this.paths[i][1].reverse();
                 for(var j in this.paths[i][1]) {
                     var c = this.paths[i][1][j];
                     t += '<p class="hidden">';
@@ -133,7 +135,7 @@ function Prediction(item) {
     }
     
     this.shortHtml = function() {
-        s = this.to.shortHtml();
+        var s = this.to.shortHtml();
         s += " " + this.direction.replace(/-/gi," ");
         s += " with " + this.from.shortHtml();
         return s;        
@@ -148,14 +150,14 @@ function Quantity(item) {
     this.note = item.note;
     
     this.shortHtml = function() {
-        s = "<strong>" + this.name.replace(/-/gi," ") + "</strong>";
+        var s = "<strong>" + this.name.replace(/-/gi," ") + "</strong>";
         if(this.is_in != null)
             s += " in <strong>" + this.is_in.name.replace(/-/gi," ") + "</strong>";
         return s;
     }
     
     this.html = function() {
-        s = this.shortHtml();
+        var s = this.shortHtml();
         if(this.type != "nil")
             s += " is <strong>" + this.type + "</strong>";
         s += ".";
