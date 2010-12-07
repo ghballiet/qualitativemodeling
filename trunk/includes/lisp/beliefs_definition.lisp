@@ -9,7 +9,7 @@
 (defun build-belief-list ()
   (let ((facts (compare-to-facts facts*))
 	)
-    (loop for pair in facts do
+    (loop for pair in (reverse facts) do
 	 (create-belief-from-pair pair))))
 
 ;; json encoding of beliefs

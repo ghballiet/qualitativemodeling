@@ -95,10 +95,16 @@ function Prediction(item) {
     this.paths = item.paths;
         
     this.html = function() {
-        var s = this.to.shortHtml();
+        var b = this.id.replace('p','b');
+        var relation = objects['beliefs'][b].relation;
+        
+        var s = "";
+        s += '<p class="' + relation + ' arrow">' + relation + '</p>';        
+        s += this.to.shortHtml();
         s += " " + this.direction.replace(/-/gi," ");
         s += " with " + this.from.shortHtml();
         s += ".";
+        
         
         var t = '<div id="' + this.id + '_explanation" class="explanation">';
         if(this.paths != null) {

@@ -11,7 +11,7 @@ references["claims"] = { "quantities" : [ "cause", "effect" ] };
 
 var names = ['claims', 'facts', 'places', 'quantities'];
 
-var debug = false;
+var debug = true;
 
 function load_entity(entity) {
     var n = entity;
@@ -115,15 +115,15 @@ function make_classes(json_data, objects) {
         }
     }
 
-    // for(var o in objects['beliefs']) {
-    //     var f = objects['beliefs'][o].fact;
-    //     var f2 = objects['facts'][f];
-    //     objects['beliefs'][o].fact = f2;
-    // 
-    //     var p = objects['beliefs'][o].prediction;
-    //     var p2 = objects['predictions'][p];
-    //     objects['beliefs'][o].prediction = p2;
-    // }
+    for(var o in objects['beliefs']) {
+        var f = objects['beliefs'][o].fact;
+        var f2 = objects['facts'][f];
+        objects['beliefs'][o].fact = f2;
+    
+        var p = objects['beliefs'][o].prediction;
+        var p2 = objects['predictions'][p];
+        objects['beliefs'][o].prediction = p2;
+    }
 }
 
 function refresh_data(objects) {
@@ -156,7 +156,7 @@ function refresh_data(objects) {
     
     // fixed names for facts, claims, and places
     $('#facts h2').html('Empirical Facts');
-    $('#claims h2').html('Hypothesized Claims');
+    $('#claims h2').html('Hypothetical Claims');
     $('#places h2').html('Locations');
         
     add_button_events();
@@ -338,7 +338,7 @@ function get_beliefs() {
        load_entity('beliefs');
        make_classes(json_data, objects);
        refresh_data(objects);
-       show_message("Loaded predictions and beliefs.",2500);
+       // show_message("Loaded predictions.",2500);
     });
 }
 
@@ -353,9 +353,7 @@ function show_predictions() {
             data: { 'cmd' : cmd },
             complete: function(data) {
                 load_entity('predictions');
-                make_classes(json_data, objects);
-                refresh_data(objects);
-                // get_beliefs();
+                get_beliefs();
             }
         });
         

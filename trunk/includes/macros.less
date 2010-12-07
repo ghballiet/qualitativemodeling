@@ -10,6 +10,7 @@
     box-shadow: @x @y @z @color inset;
 }
 
+
 .round(@radius:0px) {
     -webkit-border-radius: @radius;
     -moz-border-radius: @radius;
@@ -28,6 +29,18 @@
     border-bottom-right-radius: @radius;
 }
 
+.round-tl(@radius: 0px) {
+    -webkit-top-left-radius: @radius;
+    -moz-border-radius-topleft: @radius;
+    border-top-left-radius: @radius;
+}
+
+.round-tr(@radius: 0px) {
+    -webkit-top-right-radius: @radius;
+    -moz-border-radius-topright: @radius;
+    border-top-right-radius: @radius;
+}
+
 .gradient(@from:transparent, @to:transparent) {
     background-color: @from;
     background-image: -webkit-gradient(linear,left top,left bottom,from(@from),to(@to));
@@ -39,4 +52,9 @@
 
 .clearfix {
     clear: both;
+}
+
+.rotate(@deg: 0deg) {
+    -webkit-transform: rotate(@deg);
+    -moz-transform: rotate(@deg);
 }

@@ -17,7 +17,7 @@ include_once('../templates/before.php');
     <h2>quantities</h2>
 </div>
 <div id="claims" class="box">
-    <h2>hypothesized claims</h2>
+    <h2>hypothetical claims</h2>
 </div>
 <div id="facts" class="box">
     <h2>empirical facts</h2>
