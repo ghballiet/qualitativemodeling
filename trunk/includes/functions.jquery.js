@@ -2,6 +2,7 @@ var json_data = {};
 var objects = {};
 var mouse_in_form = false;
 var mouse_in_explanation = false;
+var mouse_in_note = false;
 
 var references = {};
 references["places"] = { "places" : [ "in" ] };
@@ -162,6 +163,7 @@ function refresh_data(objects) {
     add_button_events();
     delete_button_events();
     prediction_click_events();
+    item_click_events();
 }
 
 function add_button(item) {
@@ -315,6 +317,14 @@ function prediction_click_events() {
     });
 }
 
+function item_click_events() {
+    $('.item').click(function(){
+        var id = $(this).attr('id');
+        $('.item span').hide();
+        $('#' + id + ' span').css('display','block');
+    });
+}
+
 $.fn.serializeObject = function()
 {
    var o = {};
@@ -431,7 +441,7 @@ $(document).ready(function() {
     
     $('#import_lisp').click(function() {
         import_from_lisp();
-    });
+    });    
     
     $('.add_form').hover(function() {
        mouse_in_form = true; 
@@ -445,10 +455,18 @@ $(document).ready(function() {
        mouse_in_explanation = false;
     });
     
+    $('.item').hover(function() {
+       mouse_in_item = true;
+    }, function() {
+       mouse_in_item = false;
+    });
+    
     $('body').mouseup(function() {
         // if(!mouse_in_form)
         //     $('.add_form').remove();
         if(!mouse_in_explanation)
             $('.explanation').hide();
+        if(!mouse_in_item)
+            $('.item span').hide();
     });
 });
