@@ -98,6 +98,7 @@ function Prediction(item) {
         var b = this.id.replace('p','b');
         var relation = objects['beliefs'][b].relation;
         var f = objects['beliefs'][b]['fact'].id;
+        
         console.log(objects['facts'][f]);
         
         if(objects['facts'][f] == null)
@@ -117,11 +118,12 @@ function Prediction(item) {
             t += ' with ' + this.from.fullName() + ' because:</h3>';
             var count = 0;
             this.paths.reverse();
+            
             for(var i in this.paths) {
                 count++;
                 t += '<div class="direction" id="direction_' + this.id + '_' + this.paths[i][0] + count + '">';
                 // t += '<h4>' + this.paths[i][0] + '</h4>';
-                t += '<h4>Explanation ' + count + '</h4>';
+                t += '<h4>Explanation ' + count + '</h4>';                
                 this.paths[i][1].reverse();
                 for(var j in this.paths[i][1]) {
                     var c = this.paths[i][1][j];
