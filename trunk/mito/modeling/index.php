@@ -19,13 +19,14 @@ include_once('../templates/before.php');
 <div id="claims" class="box">
     <h2>hypothetical claims</h2>
 </div>
+<div>
 <div id="facts" class="box">
     <h2>empirical facts</h2>
 </div>
 <div id="predictions" class="box">
     <h2>predictions</h2>
 </div>
-
+</div>
 <div id="beliefs" class="box">
     <h2>beliefs</h2>
 </div>
