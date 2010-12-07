@@ -99,7 +99,7 @@ function Prediction(item) {
         var relation = objects['beliefs'][b].relation;
         
         var s = "";
-        s += '<p class="' + relation + ' arrow">' + relation + '</p>';        
+        s += '<p class="' + relation + ' arrow">' + relation + '</p>';
         s += this.to.shortHtml();
         s += " " + this.direction.replace(/-/gi," ");
         s += " with " + this.from.shortHtml();

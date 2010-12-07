@@ -121,8 +121,7 @@ pre {
 
 .item span:after {
     content:"";
-/*  display:block; /* reduce the damage in FF3.0 */
-    display: none;
+    display:block; /* reduce the damage in FF3.0 */
 	position:absolute;
 	bottom:-10px;
 	left:50px;
@@ -196,7 +195,11 @@ pre {
 /*    .shadow(0px,1px,2px,rgba(0,0,0,.4));*/
     display: none;
     margin-top: -1.5em;
-    margin-left: -8.5em;
+    margin-left: -5.25em;
+}
+
+.edit_button {
+    display: none;
 }
 
 #messages {
@@ -343,7 +346,7 @@ pre {
     cursor: pointer;
 }
 
-@arrow-width: 6em;
+@arrow-width: 5.5em;
 
 p.arrow {
     z-index: 0;
