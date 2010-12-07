@@ -22,9 +22,9 @@ function Claim(item) {
     this.note = item.note;
     
     this.html = function() {
-        s = this.cause.shortHtml();
+        s = this.effect.shortHtml();
         s += " " + this.direction.replace(/-/gi," ") + " ";
-        s += "with " + this.effect.shortHtml();
+        s += "with " + this.cause.shortHtml();
         s += ".";
         if(this.note != "nil" && this.note !="")
             s += " <span>" + this.note + "</span>";
@@ -32,9 +32,9 @@ function Claim(item) {
     };
     
     this.html_nonotes = function() {
-        s = this.cause.shortHtml();
+        s = this.effect.shortHtml();
         s += " " + this.direction.replace(/-/gi," ") + " ";
-        s += "with " + this.effect.shortHtml();
+        s += "with " + this.cause.shortHtml();
         s += ".";
         return s;
     }
@@ -117,7 +117,7 @@ function Prediction(item) {
                 t += '<h4>' + this.paths[i][0] + '</h4>';
                 for(var j in this.paths[i][1]) {
                     var c = this.paths[i][1][j];
-                    t += '<p>';
+                    t += '<p class="hidden">';
                     t += c.html_nonotes();
                     t += '</p>';
                 }
