@@ -80,7 +80,7 @@
 	      (push (claim-id item) lst))
 	 (push (list direction lst) master-list)
 	 )
-    (reverse master-list)))
+    (reverse (reverse master-list))))
 
 (defun load-all-predictions (facts)
   (cond ((null facts) (setq facts facts*))
