@@ -10,6 +10,7 @@ references["places"] = { "places" : [ "in" ] };
 references["quantities"] = { "places" : [ "in" ] };
 references["facts"] = { "quantities" : [ "from", "to" ] };
 references["claims"] = { "quantities" : [ "cause", "effect" ] };
+references["beliefs"] = { "facts" : ["fact"], "predictions" : ["prediction"]};
 
 var names = ['claims', 'facts', 'places', 'quantities'];
 
@@ -138,9 +139,8 @@ function refresh_data(objects) {
         add_button(i);
         
         console.log("Rendering: " + i);
-        
-        try {            
-            for(j in objects[i]) {
+        for(j in objects[i]) {
+            try {
                 var o = objects[i][j];
                 var s = '<div id="' + o.id + '" class="item">';
                 s += o.html();
@@ -150,9 +150,9 @@ function refresh_data(objects) {
                 s += '</div>';
                 s += '</div>';
                 $('#' + i).append(s);
+            } catch(error) {
+                console.log(error + ": " + o + " - " + j);
             }
-        } catch(error) {
-            
         }
     }
     
@@ -178,60 +178,64 @@ function find_all_references(type, id) {
         remove[kind] = Array();
     
     // add this initially
-    remove[type].push(id);
+    try {
+        remove[type].push(id);
     
-    for(var place in json_data['places']) {
-        for(var i=0; i < remove['places'].length; i++) {
-            if(json_data['places'][place]['in'] == remove['places'][i])
-                remove['places'].push(json_data['places'][place]['id']);
-        }
-    }
-
-    for(var qty in json_data['quantities']) {
-        for(var i=0; i < remove['places'].length; i++) {
-            if(json_data['quantities'][qty]['in'] == remove['places'][i])
-                remove['quantities'].push(json_data['quantities'][qty]['id']);
-        }
-    }
-
-    for(var i=0; i < remove['quantities'].length; i++) {
-        var value = remove['quantities'][i];
-    
-        for(var fact in json_data['facts']) {
-            var item = json_data['facts'][fact];
-        
-            if(item['from'] == value || item['to'] == value) {
-                var exists = false;
-            
-                for(var j=0; j < remove['facts'].length; j++) {
-                    if(remove['facts'][j] == item['id']) {
-                        exists = true;
-                        break;
-                    }
-                }
-            
-                if(!exists)
-                    remove['facts'].push(item['id']);
+        for(var place in json_data['places']) {
+            for(var i=0; i < remove['places'].length; i++) {
+                if(json_data['places'][place]['in'] == remove['places'][i])
+                    remove['places'].push(json_data['places'][place]['id']);
             }
         }
-    
-        for(var claim in json_data['claims']) {
-            var item = json_data['claims'][claim];
-        
-            if(item['cause'] == value || item['effect'] == value) {                    
-                var exists = false;
-        
-                for(var j=0; j < remove['claims'].length; j++) {
-                    if(remove['claims'][j] == item['id']) {
-                        exists = true;
-                        break;
-                    }
-                }
-        
-                if(!exists)
-                    remove['claims'].push(item['id']);
+
+        for(var qty in json_data['quantities']) {
+            for(var i=0; i < remove['places'].length; i++) {
+                if(json_data['quantities'][qty]['in'] == remove['places'][i])
+                    remove['quantities'].push(json_data['quantities'][qty]['id']);
             }
         }
+
+        for(var i=0; i < remove['quantities'].length; i++) {
+            var value = remove['quantities'][i];
+    
+            for(var fact in json_data['facts']) {
+                var item = json_data['facts'][fact];
+        
+                if(item['from'] == value || item['to'] == value) {
+                    var exists = false;
+            
+                    for(var j=0; j < remove['facts'].length; j++) {
+                        if(remove['facts'][j] == item['id']) {
+                            exists = true;
+                            break;
+                        }
+                    }
+            
+                    if(!exists)
+                        remove['facts'].push(item['id']);
+                }
+            }
+    
+            for(var claim in json_data['claims']) {
+                var item = json_data['claims'][claim];
+        
+                if(item['cause'] == value || item['effect'] == value) {                    
+                    var exists = false;
+        
+                    for(var j=0; j < remove['claims'].length; j++) {
+                        if(remove['claims'][j] == item['id']) {
+                            exists = true;
+                            break;
+                        }
+                    }
+        
+                    if(!exists)
+                        remove['claims'].push(item['id']);
+                }
+            }
+        }
+    } catch(e) {
+        console.log(e);
     }
     
     return remove;
@@ -254,7 +258,7 @@ function delete_button(item) {
     
     if(confirm(confirm_str)) {
         // delete from json
-        console.log('Deleting: ' + id + ' from ' + type);        
+        console.log('Deleting: ' + id + ' from ' + type);
         delete json_data[type][id];
         
         // delete all references
@@ -298,12 +302,6 @@ function init_events() {
     item_click_events();     
     prediction_click_events();
     
-    $('.add_form').hover(function() {
-       mouse_in_form = true; 
-    }, function() {
-       mouse_in_form = false;
-    });
-    
     $('.explanation').hover(function() {
        mouse_in_explanation = true;
     }, function() {
@@ -322,8 +320,9 @@ function init_events() {
     });
     
     $('body').mouseup(function() {
-        if(!mouse_in_form)
+        if(!mouse_in_form) {
             $('.add_form').remove();
+        }
         if(!mouse_in_explanation)
             $('.explanation').hide();
         if(!mouse_in_item)
@@ -336,7 +335,15 @@ function add_button_events() {
         var i = $(this).attr('id').replace('add_','');        
         console.log("Add: " + i);
         addForm(i);
-    });    
+        $('.add_form').hover(function() {
+           mouse_in_form = true; 
+        }, function() {
+           mouse_in_form = false;
+        });
+        
+        $('.add_form input:first-child').focus();
+    });
+    
 }
 
 function delete_button_events() {
@@ -406,11 +413,15 @@ function show_predictions() {
         });
         
     } catch(e) {
+        console.log(e);
     }
 }
 
 function view_json() {
     var jdata2 = json_data;
+    
+    delete jdata2['predictions'];
+    delete jdata2['beliefs'];
     
     for(var type in jdata2) {
         for(var id in json_data[type]) {
@@ -420,9 +431,13 @@ function view_json() {
         }
     }
     
-    $.post('../includes/view_json.php', { 'json_data' : jdata2 }, function(data) {
-        show_message(data, 2500);
-    });
+    try {
+        $.post('../includes/view_json.php', { 'json_data' : jdata2 }, function(data) {
+            show_message(data, 2500);
+        });
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 function reset_json() {
@@ -433,11 +448,12 @@ function reset_json() {
 
 function export_to_lisp() {
     var cmd = "./lisp/export.sh ";
-    show_message("Succesfully exported to Lisp.",2500);
+    // show_message("Succesfully exported to Lisp.",2500);
 }
 
 function import_from_lisp() {
     for(var i in names) {
+        if (i == "beliefs") continue;
         var cmd = "./lisp/encode_struct.sh " + names[i];
         $.ajax({
             type: "post",
@@ -446,6 +462,7 @@ function import_from_lisp() {
             async: false,
             data: { 'cmd' : cmd },
             complete: function(data) {
+                console.log(data);
                 load_entity(names[i]);
             }
         });

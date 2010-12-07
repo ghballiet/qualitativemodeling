@@ -1,6 +1,6 @@
 <?php
 // hide errors
-ini_set("display_errors", 0);
+// ini_set("display_errors", 0);
 
 $data = $_REQUEST['json_data'];
 
@@ -22,7 +22,7 @@ foreach($data as $key => $value) {
             }
         }
     } catch(Exception $e) {
-        
+        echo $e;
     }
     
     fwrite($f, ']');

@@ -97,7 +97,12 @@ function Prediction(item) {
     this.html = function() {
         var b = this.id.replace('p','b');
         var relation = objects['beliefs'][b].relation;
+        var f = objects['beliefs'][b]['fact'].id;
+        console.log(objects['facts'][f]);
         
+        if(objects['facts'][f] == null)
+            return "";
+            
         var s = "";
         s += '<p class="' + relation + ' arrow">' + relation + '</p>';
         s += this.to.shortHtml();
