@@ -318,8 +318,7 @@ function init_events() {
     
     $('.direction').click(function() {
         var id = $(this).attr('id');
-        console.log(id);
-        $('#' + id + ' p').show();
+        $('#' + id + ' p').toggleClass('hidden');
     });
     
     $('body').mouseup(function() {

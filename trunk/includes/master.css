@@ -298,7 +298,7 @@ pre {
 .direction:last-child { margin-bottom: 0px; }
 .direction p {
   margin-bottom: 0.5em;
-  display: none;
+  text-align: left;
 }
 .direction p strong {
   color: #220000;
