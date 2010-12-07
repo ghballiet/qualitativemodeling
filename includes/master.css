@@ -296,7 +296,10 @@ pre {
   margin-bottom: 1em;
 }
 .direction:last-child { margin-bottom: 0px; }
-.direction p { margin-bottom: 0.5em; }
+.direction p {
+  margin-bottom: 0.5em;
+  display: none;
+}
 .direction p strong {
   color: #220000;
   font-weight: normal;

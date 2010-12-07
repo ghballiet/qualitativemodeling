@@ -3,6 +3,7 @@ var objects = {};
 var mouse_in_form = false;
 var mouse_in_explanation = false;
 var mouse_in_note = false;
+var mouse_in_item = false;
 
 var references = {};
 references["places"] = { "places" : [ "in" ] };
@@ -155,15 +156,12 @@ function refresh_data(objects) {
         }
     }
     
+    init_events();
+    
     // fixed names for facts, claims, and places
     $('#facts h2').html('Empirical Facts');
     $('#claims h2').html('Hypothetical Claims');
     $('#places h2').html('Locations');
-        
-    add_button_events();
-    delete_button_events();
-    prediction_click_events();
-    item_click_events();
 }
 
 function add_button(item) {
@@ -294,6 +292,45 @@ function generateID(type) {
     return type_char + "" + max_id;
 }
 
+function init_events() {
+    add_button_events();
+    delete_button_events();
+    item_click_events();     
+    prediction_click_events();
+    
+    $('.add_form').hover(function() {
+       mouse_in_form = true; 
+    }, function() {
+       mouse_in_form = false;
+    });
+    
+    $('.explanation').hover(function() {
+       mouse_in_explanation = true;
+    }, function() {
+       mouse_in_explanation = false;
+    });
+    
+    $('.item').hover(function() {
+       mouse_in_item = true;
+    }, function() {
+       mouse_in_item = false;
+    });
+    
+    $('.direction').click(function() {
+        var id = $(this).attr('id');
+        console.log(id);
+        $('#' + id + ' p').show();
+    });
+    
+    $('body').mouseup(function() {
+        if(!mouse_in_form)
+            $('.add_form').remove();
+        if(!mouse_in_explanation)
+            $('.explanation').hide();
+        if(!mouse_in_item)
+            $('.item span').hide();
+    });
+}
 
 function add_button_events() {
     $('.add_button').click(function() {
@@ -319,6 +356,8 @@ function prediction_click_events() {
 
 function item_click_events() {
     $('.item').click(function(){
+        if($(this).parent().attr('id') == 'predictions')
+            return; 
         var id = $(this).attr('id');
         $('.item span').hide();
         $('#' + id + ' span').css('display','block');
@@ -441,32 +480,6 @@ $(document).ready(function() {
     
     $('#import_lisp').click(function() {
         import_from_lisp();
-    });    
-    
-    $('.add_form').hover(function() {
-       mouse_in_form = true; 
-    }, function() {
-       mouse_in_form = false;
     });
-    
-    $('.explanation').hover(function() {
-       mouse_in_explanation = true; 
-    }, function() {
-       mouse_in_explanation = false;
-    });
-    
-    $('.item').hover(function() {
-       mouse_in_item = true;
-    }, function() {
-       mouse_in_item = false;
-    });
-    
-    $('body').mouseup(function() {
-        // if(!mouse_in_form)
-        //     $('.add_form').remove();
-        if(!mouse_in_explanation)
-            $('.explanation').hide();
-        if(!mouse_in_item)
-            $('.item span').hide();
-    });
+    init_events(); 
 });

@@ -110,8 +110,10 @@ function Prediction(item) {
         if(this.paths != null) {
             t += '<h3>' + this.to.fullName() + ' ' + this.direction.replace(/-/gi," ");
             t += ' with ' + this.from.fullName() + ' because:</h3>';
+            var count = 0;
             for(var i in this.paths) {
-                t += '<div class="direction">';
+                count++;
+                t += '<div class="direction" id="direction_' + this.id + '_' + this.paths[i][0] + count + '">';
                 t += '<h4>' + this.paths[i][0] + '</h4>';
                 for(var j in this.paths[i][1]) {
                     var c = this.paths[i][1][j];
@@ -125,7 +127,7 @@ function Prediction(item) {
             t += '<h3>There are no causal paths from ' + this.to.fullName() + ' to ' + this.from.fullName() + '.</h3>';
         }
         t += '</div>';
-        $('#predictions').append(t);
+        $('#wrapper').append(t);
         s += '</div>';
         return s;
     }
