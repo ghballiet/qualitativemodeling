@@ -1,0 +1,6 @@
+#wrapper {
+  width: 90em;
+  margin: 2em auto;
+}
+#beliefs, #q0 { display: none; }
+#claims { width: 60em; }
